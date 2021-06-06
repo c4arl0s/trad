@@ -14,46 +14,46 @@ BLANCO="\033[1;37m"
 
 $palabra=ninguna
 
-directorio_ingles='/Users/Carl/Documents/BASH-PROGRAMMING/DICT-EN-ES/VOCABULARY/ENGLISH'
-directorio_espanol='/Users/Carl/Documents/BASH-PROGRAMMING/DICT-EN-ES/VOCABULARY/SPANISH'
-directorio_comodin='/Users/Carl/Documents/BASH-PROGRAMMING/DICT-EN-ES/VOCABULARY'
-directorio_audio='/Users/Carl/Documents/BASH-PROGRAMMING/DICT-EN-ES/VOCABULARY/WORDS-AUDIO'
+directorio_ingles='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Documents/BashProgramming/DICT-EN-ES/VOCABULARY/ENGLISH'
+directorio_espanol='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Documents/BashProgramming/DICT-EN-ES/VOCABULARY/SPANISH'
+directorio_comodin='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Documents/BashProgramming/DICT-EN-ES/VOCABULARY'
+directorio_audio='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Documents/BashProgramming/DICT-EN-ES/VOCABULARY/WORDS-AUDIO'
 
 ################################ Declaracion de Funciones ###################################
 
 imprimir_titulo()
 {
     echo -e ""
-	echo -e "$ROJO --------------------------------------------------------------------------------------------------------"
-	echo -e "$BLANCO 	BUSCAR PALABRA: (ingresa palabra en español o inglés) " La ultima palabra buscada fue ... $palabra
-	echo -e "$ROJO --------------------------------------------------------------------------------------------------------"   
+    echo -e "$ROJO --------------------------------------------------------------------------------------------------------"
+    echo -e "$BLANCO 	BUSCAR PALABRA: (ingresa palabra en español o inglés) " La ultima palabra buscada fue ... $palabra
+    echo -e "$ROJO --------------------------------------------------------------------------------------------------------"   
 }
 
 prueba_existencia()
 {
     palabra=$1
-    test -f /Users/Carl/Documents/BASH-PROGRAMMING/DICT-EN-ES/VOCABULARY/ENGLISH/$palabra.txt
+    test -f ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Documents/BashProgramming/DICT-EN-ES/VOCABULARY/ENGLISH/$palabra.txt
     bandera=$?
     return $bandera
 }
 
 limpiar_archivo_ingles()
 {
-palabra=$1
-# sed '/^ *$/d' file
-# Borra todas las lineas que esten vacias o que contengan espacios en blanco.
-#  '*' Indica 0 o mas ocurrencias del caracter previo. 
-#  '^ *$' Indica una linea que contiene cero o mas espacios. 
-# Por lo tanto, esto borrara todas las lineas las cuales estan vacias o lineas con solo algunos espacios en blanco.
-sed '/^ *$/d' $directorio_ingles/$palabra.txt > $directorio_comodin/comodin.txt
-cat $directorio_comodin/comodin.txt > $directorio_ingles/$palabra.txt
+    palabra=$1
+    # sed '/^ *$/d' file
+    # Borra todas las lineas que esten vacias o que contengan espacios en blanco.
+    #  '*' Indica 0 o mas ocurrencias del caracter previo. 
+    #  '^ *$' Indica una linea que contiene cero o mas espacios. 
+    # Por lo tanto, esto borrara todas las lineas las cuales estan vacias o lineas con solo algunos espacios en blanco.
+    sed '/^ *$/d' $directorio_ingles/$palabra.txt > $directorio_comodin/comodin.txt
+    cat $directorio_comodin/comodin.txt > $directorio_ingles/$palabra.txt
 }
 
 limpiar_archivo_espanol()
 {
-palabra=$1
-sed '/^ *$/d' $directorio_espanol/$palabra.txt > $directorio_comodin/comodin.txt
-cat $directorio_comodin/comodin.txt > $directorio_espanol/$palabra.txt
+    palabra=$1
+    sed '/^ *$/d' $directorio_espanol/$palabra.txt > $directorio_comodin/comodin.txt
+    cat $directorio_comodin/comodin.txt > $directorio_espanol/$palabra.txt
 }
 
 obtener_campos_espanol()
@@ -96,47 +96,47 @@ obtener_campos_ingles()
 
 imprimir_campos_ingles()
 {
-echo -e "$BLANCO"
-echo -e "$INGLES --> $ROSAFONDONEGRO $ESPANOL"
-echo -e ""
-        if [ -z "$EXTRA" ];
-        then    
-            echo -e "$BLANCO Extra: $VERDE $EXTRA"
-        fi
-        if [ -n "$P" ];
-        then    
-            echo -e "$BLANCO Past: $VERDE $P" 
-        fi
-        if [ -n "$PP" ]
-        then
-            echo -e "$BLANCO Past Participe: $VERDE $PP"
-        fi
-        if [ -n "$G" ]
-        then
-            echo -e "$BLANCO Gerund: $VERDE $G"
-        fi
-        if [ -n "$E" ]
-        then
-            echo -e "$BLANCO Ejemplo: $E"
-        fi
+    echo -e "$BLANCO"
+    echo -e "$INGLES --> $ROSAFONDONEGRO $ESPANOL"
+    echo -e ""
+    if [ -z "$EXTRA" ];
+    then    
+        echo -e "$BLANCO Extra: $VERDE $EXTRA"
+    fi
+    if [ -n "$P" ];
+    then    
+        echo -e "$BLANCO Past: $VERDE $P" 
+    fi
+    if [ -n "$PP" ]
+    then
+        echo -e "$BLANCO Past Participe: $VERDE $PP"
+    fi
+    if [ -n "$G" ]
+    then
+        echo -e "$BLANCO Gerund: $VERDE $G"
+    fi
+    if [ -n "$E" ]
+    then
+        echo -e "$BLANCO Ejemplo: $E"
+    fi
 }
 
 desplegar_traduccion_ingles()
 {
-        n=$(cuenta_lineas_archivo_ingles $palabra)
-		
-		echo -e " tiene $n numeros de lineas el archivo $palabra.txt"	
-		echo ""
-
+    n=$(cuenta_lineas_archivo_ingles $palabra)
+    
+    echo -e " tiene $n numeros de lineas el archivo $palabra.txt"	
+    echo ""
+    
         # INICIA UN FOR
-		for i in `seq $n`	# hace una accion desde i hasta n
-		
-		#for i in $n     # hace una accion desde i hasta n
-
-		do
+    for i in `seq $n`	# hace una accion desde i hasta n
+    
+    #for i in $n     # hace una accion desde i hasta n
+    
+    do
             obtener_campos_ingles $palabra $i
             imprimir_campos_ingles
-		done
+    done
 }
 
 desplegar_traduccion_espanol()
@@ -154,23 +154,23 @@ desplegar_traduccion_espanol()
 
 cuenta_lineas_archivo_espanol()
 { 
-palabra=$1
-cat $directorio_espanol/$palabra.txt | wc -l | cut -f 8 -d " "
+    palabra=$1
+    cat $directorio_espanol/$palabra.txt | wc -l | cut -f 8 -d " "
 }
 
 cuenta_lineas_archivo_ingles()
 {
-cat $directorio_ingles/$palabra.txt | wc -l | cut -f 8 -d " "
+    cat $directorio_ingles/$palabra.txt | wc -l | cut -f 8 -d " "
 }
 
 descarga_mp3_google()
 {
-wget -P $directorio_audio https://ssl.gstatic.com/dictionary/static/sounds/de/0/$palabra.mp3 
+    wget -P $directorio_audio https://ssl.gstatic.com/dictionary/static/sounds/de/0/$palabra.mp3 
 }
 
 convierte_mp3_wav()
 {
-ffmpeg -i $directorio_audio/$palabra.mp3 $directorio_audio/$palabra.wav
+    ffmpeg -i $directorio_audio/$palabra.mp3 $directorio_audio/$palabra.wav
 }
 
 ################################### INICIA PROGRAMA PRINCIPAL ######################################################
@@ -182,13 +182,13 @@ do
     echo -e "$BLANCO"
     read palabra
     test -f $directorio_ingles/$palabra.txt
-
+    
     if [ "$?" = 0 ]	        
 
-	then	
+    then	
         echo ""	
-		echo -e "$CYAN $palabra existe ..."
-		echo ""
+        echo -e "$CYAN $palabra existe ..."
+        echo ""
         limpiar_archivo_ingles $palabra
         desplegar_traduccion_ingles
 
@@ -202,8 +202,8 @@ do
             convierte_mp3_wav
             play $directorio_audio/$palabra.wav
         fi
-	else
-		test -f $directorio_espanol/$palabra.txt	
+    else
+		    test -f $directorio_espanol/$palabra.txt	
 	
 		if [ "$?" = 0 ]
         then
@@ -214,38 +214,38 @@ do
             desplegar_traduccion_espanol
             play $directorio_audio/$ingles.wav
 		else
-			echo ""
-			echo -e "$AMARILLO $palabra no existe en la base de datos!, deseas agregar la palabra ?: "
+		    echo ""
+		    echo -e "$AMARILLO $palabra no existe en la base de datos!, deseas agregar la palabra ?: "
+        echo -e ""
+        echo -e "$CYAN intentaré reproducir el audio ... "
+        test -f $directorio_audio/$palabra.wav
+        if [ "$?" = 0 ]
+        then 
+            play $directorio_audio/$palabra.wav
+        else
             echo -e ""
-            echo -e "$CYAN intentaré reproducir el audio ... "
-            test -f $directorio_audio/$palabra.wav
-                    if [ "$?" = 0 ]
-                    then 
-                        play $directorio_audio/$palabra.wav
-                    else
-                        echo -e ""
-                        echo -e "intentaré descargar la palabra de google ..."
-                        descarga_mp3_google
-                        convierte_mp3_wav
-                        play $directorio_audio/$palabra.wav
-                    fi
+            echo -e "intentaré descargar la palabra de google ..."
+            descarga_mp3_google
+            convierte_mp3_wav
+            play $directorio_audio/$palabra.wav
+        fi
             
-            echo -e "$BLANCO Deseas agregar la palabra ? (yes/no)"    
-			echo -e "teclea ENTER si deseas seguir traduciendo."
-            echo ""
+        echo -e "$BLANCO Deseas agregar la palabra ? (yes/no)"    
+			  echo -e "teclea ENTER si deseas seguir traduciendo."
+        echo ""
 
-            read decision
+       read decision
 
-            case $decision in 
+       case $decision in 
 
-                "yes")  echo "se agregara a palabra: ..."
-                        /usr/local/bin/add3 ;;
-                    
-		        "no") 	echo ""
-			            echo "dijiste NO" ;;
+         "yes")  echo "se agregara a palabra: ..."
+                     /usr/local/bin/add3 ;;
+                 
+		     "no") 	echo ""
+			         echo "dijiste NO" ;;
 
-		        *) 	echo "tecleaste ENTER"
-			        echo "" 
+		     *) 	echo "tecleaste ENTER"
+			      echo "" 
                      ;;
 		esac
 
